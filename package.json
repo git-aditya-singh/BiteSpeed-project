@@ -1,0 +1,18 @@
+{
+  "name": "bitespeed-project",
+  "version": "1.0.0",
+  "description": "identify and keep track of a customer's identity across multiple purchases.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aditya",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.9.8",
+    "sequelize": "^6.37.3"
+  }
+}
