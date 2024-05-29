@@ -19,16 +19,18 @@ async function generateContactResponse(primaryContactId) {
         }
     });
 
-    // Create the response object
-    const response = {
+    const emails = new Set([primaryContact.email, ...secondaryContacts.map(contact => contact.email).filter(email => email)]);
+    const phoneNumbers = new Set([primaryContact.phoneNumber, ...secondaryContacts.map(contact => contact.phoneNumber).filter(phoneNumber => phoneNumber)]);
+    const secondaryContactIds = new Set(secondaryContacts.map(contact => contact.id));
+
+    return {
         contact: {
             primaryContactId: primaryContact.id,
-            emails: [primaryContact.email, ...secondaryContacts.map(contact => contact.email).filter(email => email)],
-            phoneNumbers: [primaryContact.phoneNumber, ...secondaryContacts.map(contact => contact.phoneNumber).filter(phoneNumber => phoneNumber)],
-            secondaryContactIds: secondaryContacts.map(contact => contact.id)
+            emails: Array.from(emails),
+            phoneNumbers: Array.from(phoneNumbers),
+            secondaryContactIds: Array.from(secondaryContactIds)
         }
     };
-    return response;
 }
 
 app.post('/identify', async (req, res) => {
