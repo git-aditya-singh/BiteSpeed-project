@@ -33,7 +33,22 @@ async function generateContactResponse(primaryContactId) {
 
 app.post('/identify', async (req, res) => {
     const { email, phoneNumber } = req.body;
-    
+    const existingContacts = await Contact.findAll({
+        where: {
+            [Op.or]: [{ email }, { phoneNumber }]
+        }
+    });
+
+    if (existingContacts.length === 0) {
+        const newContact = await Contact.create({
+            phoneNumber,
+            email,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        });
+
+        return res.status(200).json(await generateContactResponse(newContact.id));
+    }
     
 });
 
